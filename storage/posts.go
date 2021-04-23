@@ -44,7 +44,7 @@ func GetPosts() Posts {
 }
 
 func AddPost(p *Post) {
-	p.Id = getNextId()
+	p.Id = getNextPostId()
 	postList = append(postList, p)
 }
 
@@ -58,7 +58,7 @@ func DeletePost(id int) {
 	}
 }
 
-func getNextId() int {
+func getNextPostId() int {
 	post := postList[len(postList)-1]
 	return post.Id + 1
 }
