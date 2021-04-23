@@ -26,6 +26,7 @@ func (p *Posts) GetPosts(rw http.ResponseWriter, request *http.Request) {
 	err := posts.ToJson(rw)
 	if err != nil {
 		http.Error(rw, "Unable to marshall json", http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -36,6 +37,7 @@ func (p *Posts) AddPost(rw http.ResponseWriter, request *http.Request) {
 	err := post.FromJson(request.Body)
 	if err != nil {
 		http.Error(rw, "Unable to unmarshall json", http.StatusBadRequest)
+		return
 	}
 	storage.AddPost(&post)
 }
@@ -46,7 +48,8 @@ func (p *Posts) DeletePost(rw http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
-		http.Error(rw, "Unable to conver id", http.StatusBadRequest)
+		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
+		return
 	}
 
 	storage.DeletePost(id)
