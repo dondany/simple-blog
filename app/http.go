@@ -16,7 +16,7 @@ type app struct {
 	CommentRepo *domain.CommentRepository
 }
 
-func NewHttpApp(r *mux.Router, l *log.Logger, postRepo *domain.PostRepository, commentRepo *domain.CommentRepository) app {
+func Http(r *mux.Router, l *log.Logger, postRepo *domain.PostRepository, commentRepo *domain.CommentRepository) app {
 	return app{
 		Router:      r,
 		Logger:      l,

@@ -16,7 +16,7 @@ func main() {
 	postRepo := repository.NewPostresqlPostRepository()
 	commentRepo := repository.NewPostresqlCommentRepository()
 
-	app := app.NewHttpApp(mux.NewRouter(), logger, &postRepo, &commentRepo)
+	app := app.Http(mux.NewRouter(), logger, &postRepo, &commentRepo)
 	app.Initialize()
 	app.Run(":8080")
 
