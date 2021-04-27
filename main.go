@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/dondany/simple-blog/app"
+	repository "github.com/dondany/simple-blog/storage/repository/postgresql"
 	"github.com/gorilla/mux"
 )
 
@@ -12,7 +13,10 @@ func main() {
 	logger := log.New(os.Stdout, "simple-blog-api", log.LstdFlags)
 	logger.Println("simple-blog-api project started")
 
-	app := app.App{Router: mux.NewRouter(), Logger: logger}
+	postRepo := repository.NewPostresqlPostRepository()
+	commentRepo := repository.NewPostresqlCommentRepository()
+
+	app := app.NewHttpApp(mux.NewRouter(), logger, &postRepo, &commentRepo)
 	app.Initialize()
 	app.Run(":8080")
 
