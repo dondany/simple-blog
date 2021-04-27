@@ -4,13 +4,16 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/dondany/simple-blog/domain"
 	"github.com/dondany/simple-blog/handlers"
+	"github.com/dondany/simple-blog/storage/repository/postgresql"
 	"github.com/gorilla/mux"
 )
 
 type App struct {
-	Router *mux.Router
-	Logger *log.Logger
+	Router   *mux.Router
+	Logger   *log.Logger
+	PostRepo *domain.PostRepository
 }
 
 func (app *App) Initialize() {
@@ -22,13 +25,13 @@ func (app *App) Run(host string) {
 }
 
 func (app *App) initializeRoutes() {
-	postsHandler := handlers.NewPosts(app.Logger)
-	app.Router.HandleFunc("/posts", postsHandler.GetPosts).Methods(http.MethodGet)
-	app.Router.HandleFunc("/posts", postsHandler.AddPost).Methods(http.MethodPost)
-	app.Router.HandleFunc("/posts/{id:[0-9]+}", postsHandler.DeletePost).Methods(http.MethodDelete)
+	postRepo := postgresql.NewPostresqlPostRepository()
+	postsHandler := handlers.NewPosts(app.Logger, &postRepo)
+	app.Router.HandleFunc("/posts/{id:[0-9]+}", postsHandler.Get).Methods(http.MethodGet)
+	app.Router.HandleFunc("/posts", postsHandler.GetAll).Methods(http.MethodGet)
 
-	commentsHandler := handlers.NewComments(app.Logger)
-	app.Router.HandleFunc("/comments", commentsHandler.GetComments).Methods(http.MethodGet)
-	app.Router.HandleFunc("/comments", commentsHandler.AddComment).Methods(http.MethodPost)
-	app.Router.HandleFunc("/comments/{id:[0-9]+}", commentsHandler.DeleteComment).Methods(http.MethodDelete)
+	commentsRepo := postgresql.NewPostresqlCommentRepository()
+	commentsHandler := handlers.NewComments(app.Logger, &commentsRepo)
+	app.Router.HandleFunc("/comments", commentsHandler.GetAll).Methods(http.MethodGet)
+	app.Router.HandleFunc("/comments/{id:[0-9]+}", commentsHandler.Get).Methods(http.MethodGet)
 }
