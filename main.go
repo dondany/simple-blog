@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/dondany/simple-blog/app"
-	repository "github.com/dondany/simple-blog/storage/repository/postgresql"
+	repository "github.com/dondany/simple-blog/repository/postgresql"
 	"github.com/gorilla/mux"
 )
 
