@@ -4,16 +4,16 @@ Simple blog Rest API.
 ## Currently implemented routes:
 
 ### Posts:
-#### `GET`:
+#### `GET` METHOD:
 
-`/posts`
+`/posts` - returns all the posts
 
-`/posts/{id}`
+`/posts/{id}` - returns the post with the given id
 
 
 ### Comments:
-#### `GET`:
+#### `GET` METHOD:
 
-`/comments`
+`/comments` - returns all the comments
 
-`/comments/{id}`
+`/comments/{id}` - return the comment with the given id
