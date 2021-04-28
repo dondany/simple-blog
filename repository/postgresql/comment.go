@@ -13,7 +13,7 @@ type postgresqlCommentRepo struct {
 	dbpool *pgxpool.Pool
 }
 
-func NewPostresqlCommentRepository() domain.CommentRepository {
+func PostgresqlComment() domain.CommentRepository {
 	dbpool, err := pgxpool.Connect(context.Background(), "postgres://root:root@localhost:5432/test_db")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to the database: %v\n", err)

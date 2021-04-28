@@ -50,39 +50,26 @@ func (p *Posts) GetAll(rw http.ResponseWriter, request *http.Request) {
 	json.NewEncoder(rw).Encode(result)
 }
 
-// func (p *Posts) GetPosts(rw http.ResponseWriter, request *http.Request) {
-// 	p.logger.Println("Handles GET Posts")
+func (p *Posts) Create(rw http.ResponseWriter, request *http.Request) {
+	p.logger.Println("Handling Create post")
+	result := domain.Post{}
+	err := json.NewDecoder(request.Body).Decode(&result)
+	if err != nil {
+		http.Error(rw, "Unable to unmarshal request body", http.StatusBadRequest)
+		return
+	}
+	p.postRepo.Create(request.Context(), &result)
+	rw.WriteHeader(http.StatusCreated)
+}
 
-// 	posts := storage.GetPosts()
-// 	err := posts.ToJson(rw)
-// 	if err != nil {
-// 		http.Error(rw, "Unable to marshall json", http.StatusInternalServerError)
-// 		return
-// 	}
-// }
-
-// func (p *Posts) AddPost(rw http.ResponseWriter, request *http.Request) {
-// 	p.logger.Println("Handles POST Post")
-
-// 	post := storage.Post{}
-// 	err := post.FromJson(request.Body)
-// 	if err != nil {
-// 		http.Error(rw, "Unable to unmarshall json", http.StatusBadRequest)
-// 		return
-// 	}
-// 	storage.AddPost(&post)
-// }
-
-// func (p *Posts) DeletePost(rw http.ResponseWriter, request *http.Request) {
-// 	p.logger.Println("Handles DELETE Post")
-
-// 	vars := mux.Vars(request)
-// 	id, err := strconv.Atoi(vars["id"])
-// 	if err != nil {
-// 		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	storage.DeletePost(id)
-
-//}
+func (p *Posts) Delete(rw http.ResponseWriter, request *http.Request) {
+	p.logger.Println("Handling Delete post")
+	vars := mux.Vars(request)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
+		return
+	}
+	p.postRepo.Delete(request.Context(), int64(id))
+	rw.WriteHeader(http.StatusOK)
+}

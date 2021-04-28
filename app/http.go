@@ -36,9 +36,12 @@ func (app *app) Run(host string) {
 func (app *app) initializeRoutes() {
 	postsHandler := handlers.NewPosts(app.Logger, app.PostRepo)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}", postsHandler.Get).Methods(http.MethodGet)
+	app.Router.HandleFunc("/posts/{id:[0-9]+}", postsHandler.Delete).Methods(http.MethodDelete)
 	app.Router.HandleFunc("/posts", postsHandler.GetAll).Methods(http.MethodGet)
+	app.Router.HandleFunc("/posts", postsHandler.Create).Methods(http.MethodPost)
 
 	commentsHandler := handlers.NewComments(app.Logger, app.CommentRepo)
 	app.Router.HandleFunc("/comments", commentsHandler.GetAll).Methods(http.MethodGet)
 	app.Router.HandleFunc("/comments/{id:[0-9]+}", commentsHandler.Get).Methods(http.MethodGet)
+
 }

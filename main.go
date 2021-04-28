@@ -13,11 +13,10 @@ func main() {
 	logger := log.New(os.Stdout, "simple-blog-api", log.LstdFlags)
 	logger.Println("simple-blog-api project started")
 
-	postRepo := repository.NewPostresqlPostRepository()
-	commentRepo := repository.NewPostresqlCommentRepository()
+	postRepo := repository.PostgresqlPost()
+	commentRepo := repository.PostgresqlComment()
 
 	app := app.Http(mux.NewRouter(), logger, &postRepo, &commentRepo)
 	app.Initialize()
 	app.Run(":8080")
-
 }
