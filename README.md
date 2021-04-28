@@ -1,19 +1,16 @@
 # simple-blog
 Simple blog Rest API. 
 
-## Currently implemented routes:
+## Currently implemented endpoints
 
-### Posts:
-#### `GET` METHOD:
+`GET /posts` - returns all the posts
 
-`/posts` - returns all the posts
+`GET /posts/{id}` - returns the post with the given id
 
-`/posts/{id}` - returns the post with the given id
+`POST /posts/` - create a post from request body
 
+`DELETE /posts/{id}` - delete the post with the given id
 
-### Comments:
-#### `GET` METHOD:
+`GET /comments` - returns all the comments
 
-`/comments` - returns all the comments
-
-`/comments/{id}` - return the comment with the given id
+`GET /comments/{id}` - return the comment with the given id
