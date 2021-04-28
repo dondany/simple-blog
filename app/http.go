@@ -43,5 +43,4 @@ func (app *app) initializeRoutes() {
 	commentsHandler := handlers.NewComments(app.Logger, app.CommentRepo)
 	app.Router.HandleFunc("/comments", commentsHandler.FindAll).Methods(http.MethodGet)
 	app.Router.HandleFunc("/comments/{id:[0-9]+}", commentsHandler.Find).Methods(http.MethodGet)
-
 }
