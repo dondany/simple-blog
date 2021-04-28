@@ -10,6 +10,6 @@ type Comment struct {
 }
 
 type CommentRepository interface {
-	GetAll(ctx context.Context) ([]Comment, error)
-	Get(ctx context.Context, id int64) (Comment, error)
+	FindAll(ctx context.Context) ([]Comment, error)
+	Find(ctx context.Context, id int64) (Comment, error)
 }

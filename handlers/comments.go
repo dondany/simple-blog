@@ -21,14 +21,14 @@ func NewComments(logger *log.Logger, commentRepo *domain.CommentRepository) *Com
 	return &Comments{logger, *commentRepo}
 }
 
-func (c *Comments) Get(rw http.ResponseWriter, request *http.Request) {
+func (c *Comments) Find(rw http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
 		return
 	}
-	result, err := c.commentRepo.Get(request.Context(), int64(id))
+	result, err := c.commentRepo.Find(request.Context(), int64(id))
 	if err != nil {
 		http.Error(rw, "Could not fetch the comment", http.StatusInternalServerError)
 		return
@@ -38,9 +38,9 @@ func (c *Comments) Get(rw http.ResponseWriter, request *http.Request) {
 	json.NewEncoder(rw).Encode(result)
 }
 
-func (p *Comments) GetAll(rw http.ResponseWriter, request *http.Request) {
+func (p *Comments) FindAll(rw http.ResponseWriter, request *http.Request) {
 	p.logger.Println("Handling GetAll posts")
-	result, err := p.commentRepo.GetAll(request.Context())
+	result, err := p.commentRepo.FindAll(request.Context())
 	if err != nil {
 		http.Error(rw, "Unable to fetch all comments", http.StatusBadRequest)
 		return
