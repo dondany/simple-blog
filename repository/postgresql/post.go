@@ -23,7 +23,7 @@ func PostgresqlPost() domain.PostRepository {
 	return &postgresqlPostRepo{dbpool: dbpool}
 }
 
-func (repo postgresqlPostRepo) FindAll(ctx context.Context) ([]domain.Post, error) {
+func (repo postgresqlPostRepo) GetAll(ctx context.Context) ([]domain.Post, error) {
 	rows, err := repo.dbpool.Query(ctx, "select id, title, content from posts")
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (repo postgresqlPostRepo) FindAll(ctx context.Context) ([]domain.Post, erro
 	return result, nil
 }
 
-func (repo postgresqlPostRepo) Find(ctx context.Context, id int64) (domain.Post, error) {
+func (repo postgresqlPostRepo) Get(ctx context.Context, id int64) (domain.Post, error) {
 	result := domain.Post{}
 	err := repo.dbpool.QueryRow(ctx, "select id, title, content from posts where id=$1", id).Scan(&result.Id, &result.Title, &result.Content)
 	if err != nil {

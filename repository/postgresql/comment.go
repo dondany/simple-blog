@@ -22,7 +22,7 @@ func PostgresqlComment() domain.CommentRepository {
 	return &postgresqlCommentRepo{dbpool: dbpool}
 }
 
-func (repo *postgresqlCommentRepo) FindAll(ctx context.Context) ([]domain.Comment, error) {
+func (repo *postgresqlCommentRepo) GetAll(ctx context.Context) ([]domain.Comment, error) {
 	rows, err := repo.dbpool.Query(ctx, "select id, postid, author, content from comments")
 	if err != nil {
 		return nil, err
@@ -45,7 +45,7 @@ func (repo *postgresqlCommentRepo) FindAll(ctx context.Context) ([]domain.Commen
 	return result, nil
 }
 
-func (repo *postgresqlCommentRepo) Find(ctx context.Context, id int64) (domain.Comment, error) {
+func (repo *postgresqlCommentRepo) Get(ctx context.Context, id int64) (domain.Comment, error) {
 	result := domain.Comment{}
 	err := repo.dbpool.QueryRow(context.Background(), "select id, postid, author, content from comments where id=$1", id).
 		Scan(&result.Id,

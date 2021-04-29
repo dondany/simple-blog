@@ -28,7 +28,7 @@ func (p *Posts) Find(rw http.ResponseWriter, request *http.Request) {
 		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
 		return
 	}
-	result, err := p.postRepo.Find(request.Context(), int64(id))
+	result, err := p.postRepo.Get(request.Context(), int64(id))
 	if err != nil {
 		http.Error(rw, "Could not fetch the post", http.StatusInternalServerError)
 		return
@@ -40,7 +40,7 @@ func (p *Posts) Find(rw http.ResponseWriter, request *http.Request) {
 
 func (p *Posts) FindAll(rw http.ResponseWriter, request *http.Request) {
 	p.logger.Println("Handling GetAll posts")
-	result, err := p.postRepo.FindAll(request.Context())
+	result, err := p.postRepo.GetAll(request.Context())
 	if err != nil {
 		http.Error(rw, "Unable to fetch all posts", http.StatusBadRequest)
 		return
