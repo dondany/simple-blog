@@ -66,3 +66,22 @@ func (repo postgresqlPostRepo) Delete(ctx context.Context, id int64) error {
 	}
 	return nil
 }
+
+func (repo postgresqlPostRepo) GetComments(ctx context.Context, id int64) ([]domain.Comment, error) {
+	rows, err := repo.dbpool.Query(ctx, "select id, postid, author, content from comments where postId=$1", id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var result []domain.Comment
+	for rows.Next() {
+		comment := domain.Comment{}
+		err = rows.Scan(&comment.Id, &comment.PostId, &comment.Author, &comment.Content)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, comment)
+	}
+	return result, nil
+}

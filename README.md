@@ -11,6 +11,8 @@ Simple blog Rest API.
 
 `DELETE /posts/{id}` - delete the post with the given id
 
+`GET /posts/{id}/comments` - returns all comments for the given post
+
 `GET /comments` - returns all the comments
 
 `GET /comments/{id}` - return the comment with the given id

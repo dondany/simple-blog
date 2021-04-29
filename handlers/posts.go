@@ -73,3 +73,21 @@ func (p *Posts) Delete(rw http.ResponseWriter, request *http.Request) {
 	p.postRepo.Delete(request.Context(), int64(id))
 	rw.WriteHeader(http.StatusOK)
 }
+
+func (p *Posts) GetComments(rw http.ResponseWriter, request *http.Request) {
+	p.logger.Println("Handling Get comments of the post")
+	vars := mux.Vars(request)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
+		return
+	}
+	result, err := p.postRepo.GetComments(request.Context(), int64(id))
+	if err != nil {
+		http.Error(rw, "Unable to fetch all comments for the post", http.StatusBadRequest)
+		return
+	}
+	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusOK)
+	json.NewEncoder(rw).Encode(result)
+}

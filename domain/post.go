@@ -13,4 +13,5 @@ type PostRepository interface {
 	Get(ctx context.Context, id int64) (Post, error)
 	Create(ctx context.Context, post *Post) error
 	Delete(ctx context.Context, id int64) error
+	GetComments(ctx context.Context, id int64) ([]Comment, error)
 }
