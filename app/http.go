@@ -10,18 +10,16 @@ import (
 )
 
 type app struct {
-	Router      *mux.Router
-	Logger      *log.Logger
-	PostRepo    *domain.PostRepository
-	CommentRepo *domain.CommentRepository
+	Router   *mux.Router
+	Logger   *log.Logger
+	PostRepo *domain.PostRepository
 }
 
-func Http(r *mux.Router, l *log.Logger, postRepo *domain.PostRepository, commentRepo *domain.CommentRepository) app {
+func Http(r *mux.Router, l *log.Logger, postRepo *domain.PostRepository) app {
 	return app{
-		Router:      r,
-		Logger:      l,
-		PostRepo:    postRepo,
-		CommentRepo: commentRepo,
+		Router:   r,
+		Logger:   l,
+		PostRepo: postRepo,
 	}
 }
 
@@ -41,8 +39,4 @@ func (app *app) initializeRoutes() {
 	app.Router.HandleFunc("/posts", postsHandler.Create).Methods(http.MethodPost)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.GetComments).Methods(http.MethodGet)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.AddComment).Methods(http.MethodPost)
-
-	commentsHandler := handlers.NewComments(app.Logger, app.CommentRepo)
-	app.Router.HandleFunc("/comments", commentsHandler.FindAll).Methods(http.MethodGet)
-	app.Router.HandleFunc("/comments/{id:[0-9]+}", commentsHandler.Find).Methods(http.MethodGet)
 }

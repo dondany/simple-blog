@@ -14,9 +14,8 @@ func main() {
 	logger.Println("simple-blog-api project started")
 
 	postRepo := repository.PostgresqlPost()
-	commentRepo := repository.PostgresqlComment()
 
-	app := app.Http(mux.NewRouter(), logger, &postRepo, &commentRepo)
+	app := app.Http(mux.NewRouter(), logger, &postRepo)
 	app.Initialize()
 	app.Run(":8080")
 }

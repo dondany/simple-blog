@@ -14,7 +14,3 @@ Simple blog Rest API.
 `GET /posts/{id}/comments` - returns all comments under the given post
 
 `POST /posts/{id}/comments` - create a comment under the given post
-
-`GET /comments` - returns all the comments
-
-`GET /comments/{id}` - return the comment with the given id
