@@ -85,3 +85,11 @@ func (repo postgresqlPostRepo) GetComments(ctx context.Context, id int64) ([]dom
 	}
 	return result, nil
 }
+
+func (repo postgresqlPostRepo) CreateComment(ctx context.Context, comment domain.Comment) error {
+	_, err := repo.dbpool.Exec(ctx, `insert into comments (postId, content, author) values ($1, $2, $3)`, comment.PostId, comment.Content, comment.Author)
+	if err != nil {
+		return err
+	}
+	return nil
+}

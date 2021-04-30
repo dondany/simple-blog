@@ -91,3 +91,24 @@ func (p *Posts) GetComments(rw http.ResponseWriter, request *http.Request) {
 	rw.WriteHeader(http.StatusOK)
 	json.NewEncoder(rw).Encode(result)
 }
+
+func (p *Posts) AddComment(rw http.ResponseWriter, request *http.Request) {
+	p.logger.Println("Handling Add comment for the post")
+
+	vars := mux.Vars(request)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
+		return
+	}
+
+	result := domain.Comment{}
+	err = json.NewDecoder(request.Body).Decode(&result)
+	if err != nil {
+		http.Error(rw, "Unable to unmarshal request body", http.StatusBadRequest)
+		return
+	}
+	result.PostId = int64(id)
+	p.postRepo.CreateComment(request.Context(), result)
+	rw.WriteHeader(http.StatusCreated)
+}
