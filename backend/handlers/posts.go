@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/dondany/simple-blog/domain"
+	"github.com/dondany/simple-blog/backend/domain"
 	"github.com/gorilla/mux"
 )
 
@@ -34,6 +34,8 @@ func (p *Posts) Find(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 	rw.Header().Set("Content-Type", "application/json")
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	rw.WriteHeader(http.StatusOK)
 	json.NewEncoder(rw).Encode(result)
 }
@@ -46,6 +48,8 @@ func (p *Posts) FindAll(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 	rw.Header().Set("Content-Type", "application/json")
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	rw.WriteHeader(http.StatusOK)
 	json.NewEncoder(rw).Encode(result)
 }
@@ -88,11 +92,17 @@ func (p *Posts) GetComments(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 	rw.Header().Set("Content-Type", "application/json")
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	rw.WriteHeader(http.StatusOK)
 	json.NewEncoder(rw).Encode(result)
 }
 
 func (p *Posts) AddComment(rw http.ResponseWriter, request *http.Request) {
+	setupCors(&rw, request)
+	if request.Method == "OPTIONS" {
+		return
+	}
 	p.logger.Println("Handling Add comment for the post")
 
 	vars := mux.Vars(request)
@@ -111,4 +121,10 @@ func (p *Posts) AddComment(rw http.ResponseWriter, request *http.Request) {
 	result.PostId = int64(id)
 	p.postRepo.CreateComment(request.Context(), result)
 	rw.WriteHeader(http.StatusCreated)
+}
+
+func setupCors(rw *http.ResponseWriter, request *http.Request) {
+	(*rw).Header().Set("Access-Control-Allow-Origin", "*")
+	(*rw).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*rw).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Authorization")
 }

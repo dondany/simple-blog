@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dondany/simple-blog/domain"
-	"github.com/dondany/simple-blog/handlers"
+	"github.com/dondany/simple-blog/backend/domain"
+	"github.com/dondany/simple-blog/backend/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -38,5 +38,5 @@ func (app *app) initializeRoutes() {
 	app.Router.HandleFunc("/posts", postsHandler.FindAll).Methods(http.MethodGet)
 	app.Router.HandleFunc("/posts", postsHandler.Create).Methods(http.MethodPost)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.GetComments).Methods(http.MethodGet)
-	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.AddComment).Methods(http.MethodPost)
+	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.AddComment).Methods(http.MethodPost, http.MethodOptions)
 }

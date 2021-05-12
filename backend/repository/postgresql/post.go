@@ -7,7 +7,7 @@ import (
 
 	"github.com/jackc/pgx/v4/pgxpool"
 
-	"github.com/dondany/simple-blog/domain"
+	"github.com/dondany/simple-blog/backend/domain"
 )
 
 type postgresqlPostRepo struct {

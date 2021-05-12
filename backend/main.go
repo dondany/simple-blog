@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/dondany/simple-blog/app"
-	repository "github.com/dondany/simple-blog/repository/postgresql"
+	"github.com/dondany/simple-blog/backend/app"
+	repository "github.com/dondany/simple-blog/backend/repository/postgresql"
 	"github.com/gorilla/mux"
 )
 

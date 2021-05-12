@@ -1,4 +1,4 @@
-module github.com/dondany/simple-blog
+module github.com/dondany/simple-blog/backend
 
 go 1.16
 
