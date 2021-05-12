@@ -1,0 +1,1 @@
+Svelte based frontend for simple-blog backend API.

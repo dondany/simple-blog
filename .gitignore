@@ -14,3 +14,10 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+#SVELTE FRONTEND PROJECT IGNORE
+.DS_Store
+node_modules
+/frontend/svelte-app/.svelte-kit
+/frontend/svelte-app/build
+/frontend/svelte-app/functions
