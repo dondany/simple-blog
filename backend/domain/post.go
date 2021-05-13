@@ -6,6 +6,7 @@ type Post struct {
 	Id      int64
 	Title   string
 	Content string
+	Likes   int64
 }
 
 type PostRepository interface {
@@ -15,4 +16,6 @@ type PostRepository interface {
 	Delete(ctx context.Context, id int64) error
 	GetComments(ctx context.Context, id int64) ([]Comment, error)
 	CreateComment(ctx context.Context, comment Comment) error
+	GetCommentsCount(ctx context.Context, id int64) (int, error)
+	LikePost(ctx context.Context, id int64, toggle bool) error
 }

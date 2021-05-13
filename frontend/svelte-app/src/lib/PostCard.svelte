@@ -1,4 +1,7 @@
 <script>
+    import LikesCounter from './LikesCounter.svelte'
+    import CommentsCounter from './CommentsCounter.svelte'
+
     export let post;
 </script>
 
@@ -9,13 +12,16 @@
     <div class="content">
         <p>{post.Content.substr(0,100) + "..."}</p>
     </div>
+    
+    <span class="likes"><LikesCounter readOnly="true" postId={post.Id} likes={post.Likes}/></span>
+    <span class="comments"><CommentsCounter comments={post.CommentsCount}/></span>
 </a>
 
 <style>
     .post-card {
         border-radius: 5px;
         display: inline-block;
-        height: 80px;
+        height: 120px;
         width: 500px;
         
         box-shadow: 0 1px 3px rgba(0,0,0,0.30);
@@ -35,5 +41,15 @@
     a.post-card{
         color: inherit;
         text-decoration: none;
+    }
+    .comments {
+        float: right;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    .likes {
+        float: right;
+        margin-left: 2px;
+        margin-right: 2px;
     }
 </style>

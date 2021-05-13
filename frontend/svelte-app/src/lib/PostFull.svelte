@@ -1,7 +1,12 @@
 <script>
     import Comment from './Comment.svelte'
     import AddComment from './AddComment.svelte'
+    import CommentsCounter from './CommentsCounter.svelte'
+    import LikesCounter from './LikesCounter.svelte'
+
     import {onMount} from 'svelte';
+
+    import commentIcon from './icons/chat-fill.svg'
     
     export let post;
     let comments;
@@ -29,8 +34,13 @@
         </div>
     </div>
     <div class="comment-section">
-        <h3>Comments</h3>
+        <div class="comments-likes">
+            <span class="comments"><CommentsCounter comments={post.CommentsCount}/> Comments</span>
+            <span class="likes"><LikesCounter postId={post.Id} likes={post.Likes}/></span>
+        </div>
+
         <AddComment postId={post.Id}/>
+        
         {#if comments}
             {#each comments as comment}
             <ul>
@@ -66,5 +76,16 @@
     }
     li {
         list-style-type: none;
+    }
+    .likes {
+        float: right;
+    }
+    .comments {
+        float: left;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .comments-likes {
+        margin: 10px;
     }
 </style>

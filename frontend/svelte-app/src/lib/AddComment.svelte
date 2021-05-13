@@ -23,11 +23,13 @@
 	}
 </script>
 
-<form on:submit={handleSubmit}>
-    <textarea class="input" bind:value={content} placeholder="Add comment..."></textarea>
-    <input class="input" bind:value={author} placeholder="Name...">
-    <input type="submit" value="Add Comment">
-</form>
+<div class="comment-form">
+    <form on:submit={handleSubmit}>
+        <textarea class="input" bind:value={content} placeholder="Add comment..."></textarea>
+        <input class="input" bind:value={author} placeholder="Name...">
+        <input type="submit" value="Add Comment">
+    </form>
+</div>
 
 <style>
     .input { 
@@ -56,6 +58,9 @@
     .input:focus, 
     input[type=submit]:hover {
         box-shadow: 0 2px 6px rgba(121, 137, 148, .55);
+    }
+    .comment-form {
+        margin-top: 10px;
     }
 
 </style>

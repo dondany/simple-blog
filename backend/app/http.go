@@ -39,4 +39,6 @@ func (app *app) initializeRoutes() {
 	app.Router.HandleFunc("/posts", postsHandler.Create).Methods(http.MethodPost)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.GetComments).Methods(http.MethodGet)
 	app.Router.HandleFunc("/posts/{id:[0-9]+}/comments", postsHandler.AddComment).Methods(http.MethodPost, http.MethodOptions)
+	app.Router.HandleFunc("/posts/{id:[0-9]+}/addLike", postsHandler.AddLike).Methods(http.MethodPut, http.MethodOptions)
+	app.Router.HandleFunc("/posts/{id:[0-9]+}/deleteLike", postsHandler.DeleteLike).Methods(http.MethodPut, http.MethodOptions)
 }
