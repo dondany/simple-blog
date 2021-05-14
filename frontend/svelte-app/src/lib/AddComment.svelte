@@ -24,11 +24,18 @@
 </script>
 
 <div class="comment-form">
+    <div class="form-group">
     <form on:submit={handleSubmit}>
-        <textarea class="input" bind:value={content} placeholder="Add comment..."></textarea>
-        <input class="input" bind:value={author} placeholder="Name...">
-        <input type="submit" value="Add Comment">
+        <div>
+            <textarea class="form-control" id="commentArea" bind:value={content} placeholder="Add comment..."></textarea>
+        </div>
+        <div>
+            <input class="form-control" bind:value={author} placeholder="Name...">
+        </div>
+        
+        <input type="submit" class="btn btn-primary" value="Add Comment">
     </form>
+    </div>
 </div>
 
 <style>
@@ -49,16 +56,6 @@
         height: 80px;
     }
 
-    input[type=submit] {
-        background-color: #a5a5a5;
-        border: none;
-        border-radius: 4px;
-        margin-top: 4px;
-    }
-    .input:focus, 
-    input[type=submit]:hover {
-        box-shadow: 0 2px 6px rgba(121, 137, 148, .55);
-    }
     .comment-form {
         margin-top: 10px;
     }

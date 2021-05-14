@@ -1,5 +1,7 @@
 <div class="header">
-    <h2>Simple Blog</h2>
+    <a href={`/blog/`} >
+        <h2>Simple Blog</h2>
+    </a>
 </div>
 
 
@@ -10,5 +12,9 @@
         text-align: center;
         background: white;
         border-bottom: black 5px;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 </style>

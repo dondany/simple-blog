@@ -1,7 +1,11 @@
 <script>
-    import commentIcon from './icons/chat-fill.svg';
-
     export let comments;
 </script>
 
-<img src={commentIcon} alt="Comments"/> {comments}
+<i class="bi bi-chat-square"/> {comments}
+
+<style>
+    .bi-chat-square {
+        color: black;
+    }
+</style>

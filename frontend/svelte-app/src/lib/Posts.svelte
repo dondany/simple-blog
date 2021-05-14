@@ -28,6 +28,7 @@
     <p class="loading">loading...</p>
 {/if}
 
+
 <style>
     .loading {
         opacity: 0;
@@ -41,5 +42,8 @@
 
     li {
         list-style-type: none;
+    }
+    .new-post {
+        float: right;
     }
 </style>

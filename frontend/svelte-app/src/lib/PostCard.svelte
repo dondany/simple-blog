@@ -21,7 +21,7 @@
     .post-card {
         border-radius: 5px;
         display: inline-block;
-        height: 120px;
+        height: 130px;
         width: 500px;
         
         box-shadow: 0 1px 3px rgba(0,0,0,0.30);

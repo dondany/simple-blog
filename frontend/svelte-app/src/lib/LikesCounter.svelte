@@ -27,13 +27,13 @@
 {#if !readOnly}
 <button on:click={toggleLike} class="like-btn">
     {#if isLiked}
-        <img src={thumbUpFill} alt="like"/> {likes}
+    <i class="bi bi-hand-thumbs-up liked"/> {likes}
     {:else}
-        <img src={thumbUp}/ alt="dislike"> {likes}
+    <i class="bi bi-hand-thumbs-up"/> {likes}
     {/if}
 </button>
 {:else}
-    <img src={thumbUpFill} alt="like"/> {likes}
+    <i class="bi bi-hand-thumbs-up"/> {likes}
 {/if}
 
 
@@ -45,5 +45,8 @@
     .like-btn:hover {
         color: rgb(73, 73, 247);
         cursor: pointer;
+    }
+    .bi-hand-thumbs-up.liked{
+        color: #0d6efd;
     }
 </style>
